@@ -39,14 +39,6 @@ public class Board extends JPanel {
     protected void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
 
-//        graphics.setColor(Color.DARK_GRAY);
-//        for (int x = 0; x < COL_COUNT; x++) {
-//            for (int y = 0; y < ROW_COUNT; y++) {
-//                graphics.drawLine(x * TILE_SIZE, 0, x * TILE_SIZE, getHeight());
-//                graphics.drawLine(0, y * TILE_SIZE, getWidth(), y * TILE_SIZE);
-//            }
-//        }
-
         graphics.setColor(Color.WHITE);
 
         int centerX = getWidth() / 2;
