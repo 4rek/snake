@@ -122,6 +122,8 @@ public class Game extends JFrame {
                 default:
                     break;
             }
+
+            waitUntilNextMove();
         }
     }
 
