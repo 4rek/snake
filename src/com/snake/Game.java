@@ -112,14 +112,14 @@ public class Game extends JFrame {
         repaint();
     }
 
-    private void detectCollisions() throws Exception {
+    private void detectCollisions() throws CollissionException {
         // A collission happens when more than 1 tile has specific coordinates
         // so let's check if head has not move into another tile
         long damaged = tiles.stream().filter(t -> t.getX() == head.getX() && t.getY() == head.getY()).count();
         // if there are more than 1 tile with head's coordinates it means that head moved straight into snake's body
         // meaning we have a collision on which an Exception needs to be raised
         if (damaged > 1) {
-            throw new Exception("Collision with self!");
+            throw new CollissionException("Collision with self!");
         }
 
         // Since we know that there were no collisions with snake's body let's check if we did not hit a fruit.
@@ -203,7 +203,7 @@ public class Game extends JFrame {
             // Checking tile's positions
             try {
                 detectCollisions();
-            } catch (Exception e) {
+            } catch (CollissionException e) {
                 // If Exception happens that means the collission that happened has been with the snake's body.
                 // In that case we end game, so let's save the player's score and go to next scene.
                 board.setScore(score);
