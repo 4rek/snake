@@ -113,22 +113,36 @@ public class Game extends JFrame {
     }
 
     private void detectCollisions() throws Exception {
+        // A collission happens when more than 1 tile has specific coordinates
+        // so let's check if head has not move into another tile
         long damaged = tiles.stream().filter(t -> t.getX() == head.getX() && t.getY() == head.getY()).count();
+        // if there are more than 1 tile with head's coordinates it means that head moved straight into snake's body
+        // meaning we have a collision on which an Exception needs to be raised
         if (damaged > 1) {
             throw new Exception("Collision with self!");
         }
 
+        // Since we know that there were no collisions with snake's body let's check if we did not hit a fruit.
         for (Tile fruit : fruits) {
+            // iterating through all available fruits on board and checking if the coordinates match up
             if (fruit.getX() == head.getX() && fruit.getY() == head.getY()) {
+                // if so, let's add the default score for fruit into player's account
                 score += Configuration.FRUIT_SCORE;
+                // next we "eat" the fruit which means adding it to the snake's tail
                 tiles.add(fruit);
+                // and removing fruit from the fruit's list
                 fruits.remove(fruit);
                 return;
             }
         }
     }
 
+    /*
+        Method that moves tiles across the board.
+     */
     private void moveTiles() {
+        // First we move the snake's tail, starting from last element
+        // so that head+1 element reaches coordinates of snake's head
         for (int i = (tiles.size() - 1); i > 0; i--) {
             Tile current = tiles.get(i);
             Tile before = tiles.get(i - 1);
@@ -137,6 +151,7 @@ public class Game extends JFrame {
             current.setY(before.getY());
         }
 
+        // After the above we can move snake's head to new coordinates.
         switch (direction) {
             case UP -> head.setY(head.getY() - Configuration.TILE_SIZE);
             case DOWN -> head.setY(head.getY() + Configuration.TILE_SIZE);
@@ -146,13 +161,11 @@ public class Game extends JFrame {
     }
 
     private void addFruitToBoard() {
-        if (fruits.size() < 3) {
-            int x = generateRandomCoordinate(0, Configuration.COL_COUNT - 1);
-            int y = generateRandomCoordinate(0, Configuration.ROW_COUNT - 1);
-            Tile fruit = new Tile(x, y);
+        int x = generateRandomCoordinate(0, Configuration.COL_COUNT - 1);
+        int y = generateRandomCoordinate(0, Configuration.ROW_COUNT - 1);
+        Tile fruit = new Tile(x, y);
 
-            fruits.add(fruit);
-        }
+        fruits.add(fruit);
     }
 
     private void renderGame() {
@@ -160,6 +173,8 @@ public class Game extends JFrame {
         board.setMessage("");
         repaint();
 
+        // First we define empty ArrayLists for fruits and snake tiles
+        // so that every game runs from scratch.
         fruits = new ArrayList<>();
         tiles = new ArrayList<>();
 
@@ -172,27 +187,34 @@ public class Game extends JFrame {
         gameIsPlaying = true;
 
         while (gameIsPlaying) {
+            // On every round we update tiles and fruits on board.
             board.setTiles(tiles);
             board.setFruits(fruits);
 
-            if (iteration % 10 == 0) {
+            // If we haven't yet reach out fruit limit on the board
+            // then on every 10th iteration we try to add a fruit
+            if (fruits.size() < Configuration.MAX_FRUITS_ON_BOARD && iteration % 10 == 0) {
                 addFruitToBoard();
             }
 
+            // Let's move snake's tiles to new positions
             moveTiles();
 
+            // Checking tile's positions
             try {
                 detectCollisions();
             } catch (Exception e) {
+                // If Exception happens that means the collission that happened has been with the snake's body.
+                // In that case we end game, so let's save the player's score and go to next scene.
                 board.setScore(score);
                 goToNextScene();
                 break;
             }
 
+            // Repaint board, increase iteration's number and weait for defined period of time for the next round.
             repaint();
-            waitUntilNextMove();
-
             iteration++;
+            waitUntilNextMove();
         }
 
     }

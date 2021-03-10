@@ -4,6 +4,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/*
+    Class containing all configuration constants needed for game.
+ */
 public class Configuration {
     public static final int COL_COUNT = 25;
 
@@ -18,7 +21,13 @@ public class Configuration {
      */
     public static final int TILE_SIZE = 20;
 
+    /**
+     * Default color for snake tiles.
+     */
     public static final Color TILE_COLOR = Color.CYAN;
+    /**
+     * Default color for fruit tiles.
+     */
     public static final Color FRUIT_COLOR = Color.RED;
 
     public static final int X_MIN = 0;
@@ -29,10 +38,24 @@ public class Configuration {
     public static final int Y_MAX = (ROW_COUNT - 1) * TILE_SIZE;
     public static final int Y_STARTING = (ROW_COUNT - 1) * TILE_SIZE / 2;
 
+    /**
+     * DTime duration of each round in miliseconds.
+     */
     public static final int ROUND_DURATION = 120;
 
+    /**
+     * Default score awarded to player after snake eats a fruit
+     */
     public static final int FRUIT_SCORE = 10;
 
+    /**
+     * Maximum amount of fruits available on board.
+     */
+    public static final int MAX_FRUITS_ON_BOARD = 3;
+
+    /**
+     * List of possible movements from given starting position of snake.
+     */
     public static final HashMap<Direction, ArrayList<Direction>> ALLOWED_DIRECTIONS = new HashMap<>() {{
         put(Direction.UP, new ArrayList<>() {{
             add(Direction.LEFT);

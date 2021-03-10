@@ -61,11 +61,14 @@ public class Board extends JPanel {
             graphics.drawString("Twój wynik: " + score, centerX - 45, centerY + 40);
         }
 
+        // Rendering all snake tiles - head and tail
         for (Tile tile : tiles) {
             graphics.setColor(Configuration.TILE_COLOR);
             graphics.fillRect(tile.getX(), tile.getY(), Configuration.TILE_SIZE, Configuration.TILE_SIZE);
             graphics.setColor(Color.WHITE);
         }
+
+        // Rendering all available fruits on board
         for (Tile fruit : fruits) {
             graphics.setColor(Configuration.FRUIT_COLOR);
             graphics.fillRect(fruit.getX(), fruit.getY(), Configuration.TILE_SIZE, Configuration.TILE_SIZE);

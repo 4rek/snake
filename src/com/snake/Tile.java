@@ -12,6 +12,10 @@ public class Tile {
         return y;
     }
 
+    /*
+        Method that sets X coordinate of tile have been implemented with a check
+        whether tile is not out of boundary - if so, it's being set to start of the opposite side of board.
+     */
     public void setX(int x) {
         if (x > Configuration.X_MAX) {
             this.x = Configuration.X_MIN;
@@ -22,6 +26,10 @@ public class Tile {
         }
     }
 
+    /*
+        Method that sets Y coordinate of tile have been implemented with a check
+        whether tile is not out of boundary - if so, it's being set to start of the opposite side of board.
+     */
     public void setY(int y) {
         if (y > Configuration.Y_MAX) {
             this.y = Configuration.Y_MIN;
