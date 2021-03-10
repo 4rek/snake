@@ -78,11 +78,23 @@ public class Game extends JFrame {
             @Override
             public void keyPressed(KeyEvent e) {
                 switch (e.getKeyCode()) {
-                    case KeyEvent.VK_UP -> changeDirection(Direction.UP);
-                    case KeyEvent.VK_DOWN -> changeDirection(Direction.DOWN);
-                    case KeyEvent.VK_LEFT -> changeDirection(Direction.LEFT);
-                    case KeyEvent.VK_RIGHT -> changeDirection(Direction.RIGHT);
-                    case KeyEvent.VK_SPACE -> goToNextScene();
+                    case KeyEvent.VK_UP:
+                        changeDirection(Direction.UP);
+                        break;
+                    case KeyEvent.VK_DOWN:
+                        changeDirection(Direction.DOWN);
+                        break;
+                    case KeyEvent.VK_LEFT:
+                        changeDirection(Direction.LEFT);
+                        break;
+                    case KeyEvent.VK_RIGHT:
+                        changeDirection(Direction.RIGHT);
+                        break;
+                    case KeyEvent.VK_SPACE:
+                        goToNextScene();
+                        break;
+                    default:
+                        break;
                 }
             }
         });
@@ -98,9 +110,17 @@ public class Game extends JFrame {
     public void run() {
         while (true) {
             switch (scene) {
-                case MENU -> renderMenu();
-                case GAME_ON -> renderGame();
-                case GAME_OVER -> renderGameOver();
+                case MENU:
+                    renderMenu();
+                    break;
+                case GAME_ON:
+                    renderGame();
+                    break;
+                case GAME_OVER:
+                    renderGameOver();
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -153,10 +173,20 @@ public class Game extends JFrame {
 
         // After the above we can move snake's head to new coordinates.
         switch (direction) {
-            case UP -> head.setY(head.getY() - Configuration.TILE_SIZE);
-            case DOWN -> head.setY(head.getY() + Configuration.TILE_SIZE);
-            case LEFT -> head.setX(head.getX() - Configuration.TILE_SIZE);
-            case RIGHT -> head.setX(head.getX() + Configuration.TILE_SIZE);
+            case UP:
+                head.setY(head.getY() - Configuration.TILE_SIZE);
+                break;
+            case DOWN:
+                head.setY(head.getY() + Configuration.TILE_SIZE);
+                break;
+            case LEFT:
+                head.setX(head.getX() - Configuration.TILE_SIZE);
+                break;
+            case RIGHT:
+                head.setX(head.getX() + Configuration.TILE_SIZE);
+                break;
+            default:
+                break;
         }
     }
 
@@ -240,9 +270,17 @@ public class Game extends JFrame {
 
     private void goToNextScene() {
         switch (scene) {
-            case MENU -> scene = Scene.GAME_ON;
-            case GAME_ON -> scene = Scene.GAME_OVER;
-            case GAME_OVER -> scene = Scene.MENU;
+            case MENU:
+                scene = Scene.GAME_ON;
+                break;
+            case GAME_ON:
+                scene = Scene.GAME_OVER;
+                break;
+            case GAME_OVER:
+                scene = Scene.MENU;
+                break;
+            default:
+                break;
         }
 
         clearScene();

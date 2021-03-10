@@ -1,0 +1,2 @@
+#!/bin/bash
+javac -d out src/com/snake/*.java && java -cp ./out com/snake/Main

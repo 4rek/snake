@@ -11,10 +11,14 @@
 * omówienie wybranej przez prowadzącego funkcji — 10 punktów;
 
 ## Kompilacja i uruchamianie
-### Kompilacja
+
+### Kompilacja i uruchomienie
+`./run`
+
+### Tylko kompilacja
 
 `javac -d out src/com/snake/*.java`
 
-### Uruchomienie
+### Tylko uruchomienie
 
 `java -cp ./out com/snake/Main`
