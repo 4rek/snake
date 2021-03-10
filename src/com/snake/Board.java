@@ -10,6 +10,7 @@ public class Board extends JPanel {
 
     private String title = "";
     private String message = "";
+    private int score = 0;
 
     public void setTitle(String title) {
         this.title = title;
@@ -17,6 +18,10 @@ public class Board extends JPanel {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public void setTiles(ArrayList<Tile> tiles) {
@@ -45,11 +50,15 @@ public class Board extends JPanel {
         int centerY = getHeight() / 2;
 
         if (!title.equals("")) {
-            graphics.drawString(title, centerX, centerY);
+            graphics.drawString(title, centerX - title.length() * 3, centerY);
         }
 
         if (!message.equals("")) {
-            graphics.drawString(message, centerX + 20, centerY + 20);
+            graphics.drawString(message, centerX - message.length() * 3, centerY + 20);
+        }
+
+        if (score > 0) {
+            graphics.drawString("Twój wynik: " + score, centerX - 45, centerY + 40);
         }
 
         for (Tile tile : tiles) {

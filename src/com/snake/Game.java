@@ -108,6 +108,7 @@ public class Game extends JFrame {
     private void renderMenu() {
         board.setTitle("Gra Snake");
         board.setMessage("Aby zagrać naciśnij Spację");
+        board.setScore(0);
         repaint();
     }
 
@@ -183,6 +184,7 @@ public class Game extends JFrame {
             try {
                 detectCollisions();
             } catch (Exception e) {
+                board.setScore(score);
                 goToNextScene();
                 break;
             }
@@ -209,12 +211,19 @@ public class Game extends JFrame {
         repaint();
     }
 
+    private void clearScene() {
+        board.setTiles(new ArrayList<>());
+        board.setFruits(new ArrayList<>());
+    }
+
     private void goToNextScene() {
         switch (scene) {
             case MENU -> scene = Scene.GAME_ON;
             case GAME_ON -> scene = Scene.GAME_OVER;
             case GAME_OVER -> scene = Scene.MENU;
         }
+
+        clearScene();
 
         gameIsPlaying = false;
     }
